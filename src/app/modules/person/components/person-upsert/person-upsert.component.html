@@ -1,0 +1,40 @@
+<form (submit)="submit()"  [formGroup]="personForm">
+  <div class="modal-header">
+    <h5 class="modal-title">{{selectedPerson !== undefined ? "Update Person" : "Add Person"}}</h5>
+    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <small>Name*</small>
+    <input [formControlName]="'name'" (focus)="onInputFocus('name')" (blur)="onInputBlur($event)" (input)="onInputChange($event)"
+      type="text" class="form-control" placeholder="Enter your name" maxLength="100" required>
+    <small [ngClass]="{'invisible': !(personForm.controls['name'].errors && personForm.controls['name'].touched)}" class="text-center text-danger d-block">
+      {{personForm.controls['name'].errors?.['required'] ? "Name field is required" : "Name cannot exceed 100 characters"}}
+    </small>
+    <small>Email*</small>
+    <input [formControlName]="'email'" (focus)="onInputFocus('email')" (blur)="onInputBlur($event)" (input)="onInputChange($event)"
+      type="email" class="form-control" placeholder="Enter your email" pattern="^[\w\-\.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,4}$" required>
+    <small [ngClass]="{'invisible': !(personForm.controls['email'].errors && personForm.controls['email'].touched)}" class="text-center text-danger d-block">
+      {{personForm.controls['email'].errors?.['required'] ? "Email field is required" : "Invalid email value"}}
+    </small>
+    <small>Date Of Brith*</small>
+    <input [formControlName]="'dob'" type="date" class="form-control" placeholder="Select your date of birth" required>
+    <small [ngClass]="{'invisible': !(personForm.controls['dob'].errors && personForm.controls['dob'].touched)}" class="text-center text-danger d-block">
+      {{personForm.controls['dob'].errors?.['required'] ? "Date of birth field is required" : "Invalid date of birth value"}}
+    </small>
+    <small>Country*</small>
+    <select [formControlName]="'country'" class="form-select" required>
+      <option [ngValue]="null" disabled>Select your country</option>
+      <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
+    </select>
+    <small [ngClass]="{'invisible': !(personForm.controls['country'].errors && personForm.controls['country'].touched)}" class="text-center text-danger d-block">
+      Country field is required
+    </small>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    <button type="submit" class="btn btn-success" [disabled]="!this.personForm.valid">Submit</button>
+  </div>
+</form>
+
+<app-virtual-keyboard #virtualKeyboard [activeFormControl]="activeFormControl"></app-virtual-keyboard>

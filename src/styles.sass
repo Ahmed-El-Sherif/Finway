@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap. */
+@import '~bootstrap/scss/bootstrap'
+
+/* Importing Utilities. */
+@import '~sass/utilities'
+
+/* Importing Simple Keyboard. */
+@import 'simple-keyboard/build/css/index.css'
+
+/* Global styles */
+input[type="date"]
+	color: #ffffff
+	position: relative
+
+input[type="date"]::before
+	color: #666666
+	content: attr(placeholder)
+
+input[type="date"]:focus,
+input[type="date"]:valid
+	color: #000000
+
+input[type="date"]:focus::before,
+input[type="date"]:valid::before
+	content: "" !important
+
+input[type="date"]::-webkit-calendar-picker-indicator
+	background: transparent
+	top: 0
+	bottom: 0
+	left: 0
+	right: 0
+	color: transparent
+	cursor: pointer
+	position: absolute
+	height: auto
+	width: auto

@@ -1,0 +1,15 @@
+<div class="card border bg-light shadow-sm h-100">
+  <div class="card-body">
+    <i *ngIf="canPrint" (click)="printData()" class="fas fa-print pointer text-secondary btn-print"></i>
+    <p *ngFor="let field of fields" class="card-text">
+      <span class="fw-bold">{{field.title}}: </span>
+      <span *ngIf="field.clickable else unclickable" class="clickable text-primary" (click)="onFieldClick(field.title)">
+        {{item[field.property]}}
+        <i class="fas fa-edit align-middle"></i>
+      </span>
+      <ng-template #unclickable>
+        <span>{{field.type == 4 ? (item[field.property] | age) : item[field.property]}}</span>
+      </ng-template>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="container pb-3 min-vh-100 bg-light">
+  <div class="row p-3">
+    <div class="col-12 text-center h1">
+      People Listing
+    </div>
+  </div>
+  <div class="p-3 mx-3 bg-white border border-2 rounded">
+    <div class="row">
+      <div class="col-9">
+        <ng-container *ngIf="people.length === 0">
+          No people were found click the add button to start adding data
+        </ng-container>
+      </div>
+      <div class="col-3">
+        <button class="btn btn-success btn-sm float-end" (click)="openUpsert()">
+          Add <i class="fas fa-plus ml-1"></i>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="people.length > 0;" class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+      <app-item-listing-card class="mt-3" *ngFor="let person of people; let i = index;" [item]="person" [fields]="personCardFields" [canPrint]="true" (fieldClicked)="onFieldClicked($event, i)"></app-item-listing-card>
+    </div>
+  </div>
+</div>
+
+<ng-template #upsertModal let-modal>
+  <app-person-upsert [selectedPerson]="selectedPerson" (close)="modal.dismiss()"
+    (personAdded)="onPersonAdded($event); modal.dismiss();" (personUpdated)="onPersonUpdated($event); modal.dismiss();">
+  </app-person-upsert>
+</ng-template>
